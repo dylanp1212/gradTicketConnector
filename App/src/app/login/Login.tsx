@@ -30,7 +30,7 @@ export default function Login({ returnTo }: { returnTo?: string }) {
           color: '#e1ba0c', fontFamily: '"Lexend", sans-serif',
           fontWeight: 700, textAlign: 'center',
         }}>
-          Sign in to UCSC Grad Ticket Connector
+          UCSC Grad Ticket Connector
         </Typography>
         <Button
           fullWidth
@@ -43,7 +43,7 @@ export default function Login({ returnTo }: { returnTo?: string }) {
             '&:hover': { bgcolor: '#c9a50a' },
           }}
         >
-          Sign in with Google
+          Continue with Google
         </Button>
         <Button variant="text" href="/" sx={{ color: '#e1ba0c', textTransform: 'none' }}>
           Back to home
