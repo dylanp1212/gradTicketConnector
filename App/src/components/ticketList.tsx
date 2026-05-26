@@ -2,6 +2,7 @@
 import {Listing} from '../listing';
 import {getAllListings} from '../listing/actions';
 import {useState, useEffect} from 'react';
+import TicketListItem from './ticketListItem'
 
 
 export default function TicketList() {
@@ -16,7 +17,9 @@ export default function TicketList() {
   }, [])
   return (
     <>
-      {listings.length > 0 ? listings[0].cerimony : ''}
+      {listings.map((l, i) => (
+        <TicketListItem key={i} listing={l} />
+      ))}
     </>
   )
 }
