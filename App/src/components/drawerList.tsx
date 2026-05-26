@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import {useRouter} from 'next/navigation';
 import Toolbar from '@mui/material/Toolbar';
 import DrawerListItem from './drawerListItem';
+import SignInOutButton from './SignInOutButton';
 
 
 export default function DrawerList() {
@@ -16,6 +17,9 @@ export default function DrawerList() {
       {pages.map((p, i) => (
         <DrawerListItem key={i} title={p} />
       ))}
+      <Box sx={{p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <SignInOutButton />
+      </Box>
     </Box>
   );
 }

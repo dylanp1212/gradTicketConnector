@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import DrawerButton from './drawerButton';
-// import ShoppingCartButton from './ShoppingCartButton';
+// import SignInOutButton from './SignInOutButton';
 
 
 export default function Appbar({title}: {title: string}) {
@@ -19,7 +19,7 @@ export default function Appbar({title}: {title: string}) {
             letterSpacing: '-0.01em', color: '#e1ba0c'}}>
             {title}
           </Typography>
-          {/* <ShoppingCartButton /> */}
+          {/* <SignInOutButton /> */}
         </Toolbar>
       </AppBar>
       <Toolbar></Toolbar>
