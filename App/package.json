@@ -1,0 +1,51 @@
+{
+  "name": "gradticketconnector",
+  "version": "1.0.0",
+  "description": "Grad Ticket Connector App",
+  "license": "UNLICENSED",
+  "repository": "none",
+  "dependencies": {
+    "next": "*",
+    "react": "*",
+    "react-dom": "*"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "*",
+    "@eslint/js": "*",
+    "@testing-library/dom": "*",
+    "@testing-library/react": "*",
+    "@testing-library/user-event": "*",
+    "@types/node": "*",
+    "@types/react": "*",
+    "@types/react-dom": "*",
+    "@vitejs/plugin-react": "*",
+    "@vitest/coverage-v8": "*",
+    "bestzip": "*",
+    "eslint": "*",
+    "eslint-config-next": "*",
+    "eslint-config-typescript": "*",
+    "happy-dom": "*",
+    "jscpd": "*",
+    "jsdom": "*",
+    "msw": "^2.0.0",
+    "next-router-mock": "*",
+    "puppeteer": "*",
+    "typescript": "*",
+    "typescript-eslint": "*",
+    "vitest": "*"
+  },
+  "scripts": {
+    "lint": "eslint src/app/**/* --fix",
+    "cpd": "jscpd src --silent",
+    "predev": "(npm run lint) && (npm run cpd)",
+    "dev": "next dev -p 3001",
+    "prebuild": "(npm run lint) && (npm run cpd)",
+    "build": "next build",
+    "prestart": "npm run build",
+    "start": "next start",
+    "pretest": "(npm run lint) && (npm run cpd)",
+    "test": "vitest run --dir test --no-file-parallelism --testTimeout=3000 --coverage",
+    "rtest": "vitest run --dir test --no-file-parallelism --testTimeout=3000 --coverage",
+    "re2e": "vitest run --dir e2e --no-file-parallelism --testTimeout=20000"
+  }
+}
