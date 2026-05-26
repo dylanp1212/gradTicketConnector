@@ -5,6 +5,11 @@
   "license": "UNLICENSED",
   "repository": "none",
   "dependencies": {
+    "@base-ui/react": "^1.4.1",
+    "@emotion/react": "*",
+    "@emotion/styled": "*",
+    "@mui/icons-material": "*",
+    "@mui/material": "^9.0.0",
     "next": "*",
     "react": "*",
     "react-dom": "*"

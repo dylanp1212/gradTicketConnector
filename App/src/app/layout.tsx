@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 export const metadata = {
-  title: 'Grad Ticket Connector',
+  title: 'UCSC Grad Ticket Connector',
 }
 
 export default function RootLayout({
@@ -11,7 +11,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body style={{ backgroundColor: '#68676c', margin: 0 }}>{children}</body>
     </html>
   )
 }

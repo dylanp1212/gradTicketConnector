@@ -1,3 +1,38 @@
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Appbar from '../components/appbar'
+
 export default function Home() {
-  return <main>home</main>
+  return (
+    <>
+      <Appbar title='UCSC Grad Ticket Connector' />
+      <Box sx={{p: '20px'}}>
+        <Box sx={{border: '5px solid #e1ba0c', borderRadius: '4px', p: '10px', bgcolor: '#0b0931', width: '50%'}}>
+          <Typography variant='h2' sx={{color: '#e1ba0c', fontWeight: 'bold'}}>
+            Welcome to the UCSC Grad Ticket Connector!
+          </Typography>
+        </Box>
+        <Box sx={{border: '5px solid #e1ba0c', borderRadius: '4px', p: '10px', mt: '20px', bgcolor: '#0b0931', width: '50%'}}>
+          <Typography variant='h5' sx={{color: '#e1ba0c', fontWeight: 'bold'}}>
+            This student built site has one simple goal: match people with extra UCSC graduation tickets with people who need extra UCSC graduation tickets.
+          </Typography>
+          <br/>
+          <Typography variant='h5' sx={{color: '#e1ba0c'}}>
+            Every year it is a struggle for students to find enough tickets for all their family and friends to come watch them at graduation.
+            This site connects people who need tickets with people who have them.            
+          </Typography>
+        </Box>
+        <Box sx={{border: '5px solid #e1ba0c', borderRadius: '4px', p: '10px', mt: '20px', bgcolor: '#0b0931', width: '50%'}}>
+          <Typography variant='h5' sx={{color: '#e1ba0c'}}>
+            Click here to post extra tickets!
+          </Typography>
+        </Box>
+        <Box sx={{border: '5px solid #e1ba0c', borderRadius: '4px', p: '10px', mt: '20px', bgcolor: '#0b0931', width: '50%'}}>
+          <Typography variant='h5' sx={{color: '#e1ba0c'}}>
+            Click here to search, filter, and browse tickets!
+          </Typography>
+        </Box>
+      </Box>
+    </>
+  )
 }
