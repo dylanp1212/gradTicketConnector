@@ -6,6 +6,7 @@ import HomeFilledIcon from '@mui/icons-material/HomeFilled';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import MailIcon from '@mui/icons-material/Mail';
 import {useRouter} from 'next/navigation';
 
 export default function DrawerListItem({title}: {title: string}) {
@@ -25,6 +26,9 @@ export default function DrawerListItem({title}: {title: string}) {
   } else if (title == 'Saved Tickets') {
     icon = <BookmarkIcon sx={iconsx}/>
     link = '/saved'
+  } else if (title == 'Messages') {
+    icon = <MailIcon sx={iconsx}/>
+    link = '/messages'
   }
   return (
     <Box sx={{display: 'flex', alignItems: 'center',

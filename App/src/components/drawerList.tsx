@@ -8,7 +8,8 @@ import DrawerListItem from './drawerListItem';
 
 export default function DrawerList() {
   const router = useRouter();
-  const pages = ['Home', 'Browse Tickets', 'My Tickets', 'Saved Tickets']
+  const pages = ['Home', 'Browse Tickets', 'My Tickets', 'Saved Tickets',
+    'Messages']
   return (
     <Box sx={{width: 250}}>
       <Toolbar />
