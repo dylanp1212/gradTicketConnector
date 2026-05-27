@@ -10,7 +10,7 @@ export default function TicketList() {
   const [listings, setListings] = useState(empty);
   useEffect(() => {
     const getListings = async (): Promise<void> => {
-      const l = await getAllListings({method: ['sell']});
+      const l = await getAllListings({ceremonies: ['baskin', 'crown'], method: ['sell']});
       // console.log(l)
       setListings(l);
     }

@@ -1,7 +1,7 @@
 /** @format uuid */
 export type UUID = string
 
-export type Ceremony = 'cowell' | 'stevenson' | 'crown' | 'merrill' | 'porter' | 'kresge' | 'oakes' | 'rcc' | 'c9' | 'jrl'
+export type Ceremony = 'cowell' | 'stevenson' | 'crown' | 'merrill' | 'porter' | 'kresge' | 'oakes' | 'rcc' | 'c9' | 'jrl' | 'baskin'
 
 export interface Listing {
   ceremony: Ceremony

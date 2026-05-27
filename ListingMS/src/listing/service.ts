@@ -9,27 +9,32 @@ export class ListingService {
   public async getAllListings(options: Options): Promise<Listing[]> {
     const conditions: string[] = []
     const vals: string[] = []
+    let valcounter = 1;
     if (options.ceremonies && options.ceremonies.length > 0) {
-      let clause = `(data->>'ceremony' = $1`
+      let clause = `(data->>'ceremony' = $${valcounter}`
+      valcounter += 1
       vals.push(options.ceremonies[0])
       for (let c = 1; c < options.ceremonies.length; c++) {
-        clause = clause + ` OR data->>'ceremony' = $${c + 1}`
+        clause = clause + ` OR data->>'ceremony' = $${valcounter}`
+        valcounter += 1
         vals.push(options.ceremonies[c])
       }
       clause = clause + ')'
       conditions.push(clause)
     }
     if (options.method && options.method.length > 0) {
-      let clause = `(data->'method' ? $1`
+      let clause = `(data->'method' ? $${valcounter}`
+      valcounter += 1
       vals.push(options.method[0])
       for (let m = 1; m < options.method.length; m++) {
-        clause = clause + ` OR data->'method' ? $${m + 1}`
+        clause = clause + ` OR data->'method' ? $${valcounter}`
+        valcounter += 1
         vals.push(options.method[m])
       }
       clause = clause + ')'
       conditions.push(clause)
     }
-    console.log(vals)
+    // console.log(vals)
     const whereClause = conditions.length ? `WHERE ${conditions.join(' AND ')}` : ''
     const q = `
       SELECT data || jsonb_build_object('id', id) || jsonb_build_object('member', member) AS data
