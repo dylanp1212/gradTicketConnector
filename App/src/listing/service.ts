@@ -31,6 +31,36 @@ export class ListingService {
     return res.json() as Promise<Listing>
   }
 
+  public async editQuantity(id: string, quantity: number): Promise<Listing | null> {
+    const res = await fetch(`${MS_URL}/${id}/quantity`, {
+      method: 'PATCH',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({quantity}),
+    })
+    if (!res.ok) return null
+    return res.json() as Promise<Listing>
+  }
+
+  public async editMethod(id: string, method: string[]): Promise<Listing | null> {
+    const res = await fetch(`${MS_URL}/${id}/method`, {
+      method: 'PATCH',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({method}),
+    })
+    if (!res.ok) return null
+    return res.json() as Promise<Listing>
+  }
+
+  public async editAvailable(id: string, available: boolean): Promise<Listing | null> {
+    const res = await fetch(`${MS_URL}/${id}/available`, {
+      method: 'PATCH',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({available}),
+    })
+    if (!res.ok) return null
+    return res.json() as Promise<Listing>
+  }
+
   public async getAllListings(options: Options = {}): Promise<Listing[]> {
     const params = new URLSearchParams()
     // console.log(options)

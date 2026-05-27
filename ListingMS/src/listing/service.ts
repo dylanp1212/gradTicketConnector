@@ -127,4 +127,49 @@ export class ListingService {
     const rows = (await pool.query<rowreturn>(query)).rows;
     return (rows[0].data)
   }
+
+  public async editQuantity(id: string, quantity: number): Promise<Listing|null> {
+    const q = `
+      UPDATE listing
+      SET data = jsonb_set(data, '{quantity}', $1::jsonb)
+      WHERE id = $2
+      RETURNING data || jsonb_build_object('id', id) || jsonb_build_object('member', member) AS data
+    `;
+    const query = {
+      text: q,
+      values: [quantity, id],
+    };
+    const rows = (await pool.query<rowreturn>(query)).rows;
+    return rows.length < 1 ? null : rows[0].data
+  }
+
+  public async editMethod(id: string, method: string[]): Promise<Listing|null> {
+    const q = `
+      UPDATE listing
+      SET data = jsonb_set(data, '{method}', $1::jsonb)
+      WHERE id = $2
+      RETURNING data || jsonb_build_object('id', id) || jsonb_build_object('member', member) AS data
+    `;
+    const query = {
+      text: q,
+      values: [JSON.stringify(method), id],
+    };
+    const rows = (await pool.query<rowreturn>(query)).rows;
+    return rows.length < 1 ? null : rows[0].data
+  }
+
+  public async editAvailable(id: string, available: boolean): Promise<Listing|null> {
+    const q = `
+      UPDATE listing
+      SET data = jsonb_set(data, '{available}', $1::jsonb)
+      WHERE id = $2
+      RETURNING data || jsonb_build_object('id', id) || jsonb_build_object('member', member) AS data
+    `;
+    const query = {
+      text: q,
+      values: [available, id],
+    };
+    const rows = (await pool.query<rowreturn>(query)).rows;
+    return rows.length < 1 ? null : rows[0].data
+  }
 }
