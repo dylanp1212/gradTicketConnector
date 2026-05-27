@@ -62,6 +62,22 @@ export class ListingService {
     for (const row of rows) {
       listings.push(row.data);
     }
-    return(listings);
+    return (listings);
+  }
+  public async getListingsById(id: string): Promise<Listing|undefined> {
+    const q = `
+      SELECT data || jsonb_build_object('id', id) || jsonb_build_object('member', member) AS data
+      FROM listing
+      WHERE id = $1
+    `;
+    const query = {
+      text: q,
+      values: [id],
+    };
+    const rows = (await pool.query<rowreturn>(query)).rows;
+    if (rows.length < 1) {
+      return (undefined)
+    }
+    return (rows[0].data)
   }
 }

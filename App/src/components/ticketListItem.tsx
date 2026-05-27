@@ -3,6 +3,8 @@ import Typography from '@mui/material/Typography';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
+import {useRouter} from 'next/navigation';
+
 import {Listing, Ceremony} from '../listing'
 
 export const fancyCeremony = (ceremony: Ceremony): string => {
@@ -18,16 +20,19 @@ export const formatDate = (date: Date): string => {
   return date.toLocaleDateString('en-US', {month: 'short', day: '2-digit'})
 }
 
+export const verified = <Box sx={{display: 'flex', alignItems: 'center'}}>
+  <VerifiedUserIcon sx={{color: '#e1ba0c', pl: '10px'}} />
+  <Typography variant='caption' sx={{color: '#e1ba0c', pl: '5px'}}>
+    Listed by UCSC email
+  </Typography>
+</Box>
+
 export default function TicketListItem({listing}: {listing: Listing}) {
-  const verified = <Box sx={{display: 'flex', alignItems: 'center'}}>
-    <VerifiedUserIcon sx={{color: '#e1ba0c', pl: '10px'}} />
-    <Typography variant='caption' sx={{color: '#e1ba0c', pl: '5px'}}>
-      Listed by UCSC email
-    </Typography>
-  </Box>
+  const router = useRouter();
   return (
     <Box sx={{border: '3px solid #0b0931', p: '20px', mx: '10px', mt: '10px',
-      mb: '20px', borderRadius: '10px', bgcolor: '#adadb0', cursor: 'pointer'}}>
+      mb: '20px', borderRadius: '10px', bgcolor: '#adadb0', cursor: 'pointer'}}
+      onClick={() => {router.push(`/view-ticket?id=${listing.id}`)}}>
       <Box sx={{bgcolor: '#0b0931', display: 'flex', justifyContent: 'space-between',
         alignItems: 'center', borderRadius: '10px', p: '10px'}}>
         <Box sx={{display: 'flex', alignItems: 'center'}}>

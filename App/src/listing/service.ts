@@ -11,6 +11,12 @@ import {Listing, Options} from '.'
 const MS_URL = 'http://localhost:3003/api/v0/listing'
 
 export class ListingService {
+  public async getListingById(id: string): Promise<Listing | null> {
+    const res = await fetch(`${MS_URL}/${id}`)
+    if (!res.ok) return null
+    return res.json() as Promise<Listing>
+  }
+
   public async getAllListings(options: Options = {}): Promise<Listing[]> {
     const params = new URLSearchParams()
     // console.log(options)
