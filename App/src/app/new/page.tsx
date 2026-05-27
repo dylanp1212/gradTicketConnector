@@ -14,7 +14,7 @@ import {getSessionUser} from '../../auth/actions'
 import {createNewListing} from '../../listing/actions'
 
 
-export default function Home() {
+export default function Page() {
   const [user, setUser] = useState<SessionUser | undefined>(undefined)
   const [ceremony, setCeremony] = useState<Ceremony|undefined>(undefined)
   const [title, setTitle] = useState('');

@@ -9,7 +9,7 @@ import {useState} from 'react'
 import {Options} from '../listing'
 
 
-export default function Home() {
+export default function Page() {
   // change to read from url params
   const defaultoptions = {term: 'Spring 2026', available: true}
   const [options, setOptions] = useState<Options>(defaultoptions)

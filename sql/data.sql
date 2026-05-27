@@ -17,6 +17,7 @@ VALUES (
   )
 );
 
+
 DELETE FROM listing;
 INSERT INTO listing
 VALUES (
@@ -71,3 +72,5 @@ VALUES (
     'name','Marty Member'
   )
 );
+
+DELETE FROM message;

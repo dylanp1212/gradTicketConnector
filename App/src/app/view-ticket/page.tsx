@@ -10,7 +10,7 @@ import {getListingById} from '../../listing/actions'
 import ListingViewer from '../../components/listingViewer'
 
 const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
-export default function Home() {
+export default function Page() {
   const searchParams = useSearchParams();
   const id = searchParams.get('id') ?? undefined;
   const [listing, setListing] = useState<Listing|null>(null);

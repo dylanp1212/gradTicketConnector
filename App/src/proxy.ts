@@ -12,5 +12,5 @@ export function proxy(request: NextRequest): NextResponse {
 }
 
 export const config = {
-  matcher: ['/(my-tickets|saved|new)(.*)'],
+  matcher: ['/(my-tickets|saved|new|messages)(.*)'],
 }
