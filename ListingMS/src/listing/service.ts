@@ -34,6 +34,17 @@ export class ListingService {
       clause = clause + ')'
       conditions.push(clause)
     }
+    if (options.term) {
+      conditions.push(`data->>'term' = $${valcounter}`)
+      valcounter += 1
+      vals.push(options.term)
+    }
+    if (options.available) {
+      conditions.push(`data->>'available' = 'true'`)
+    }
+    if (options.verified) {
+      conditions.push(`data->>'verified' = 'true'`)
+    }
     // console.log(vals)
     const whereClause = conditions.length ? `WHERE ${conditions.join(' AND ')}` : ''
     const q = `
