@@ -14,6 +14,17 @@ export interface Listing {
   verified: boolean
 }
 
+export interface NewListing {
+  ceremony: Ceremony
+  term: string
+  member: string
+  quantity: number
+  title: string
+  description: string
+  method: string[]
+  verified: boolean
+}
+
 export interface Options {
   ceremonies?: Ceremony[]
   term?: string

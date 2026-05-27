@@ -5,14 +5,17 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import {useRouter} from 'next/navigation';
 import Appbar from '../../components/appbar'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {Ceremony} from '../../listing'
 import {fancyCeremony} from '../../components/ticketListItem'
-
+import {getSessionUser} from '../../auth/actions'
+import {createNewListing} from '../../listing/actions'
 
 
 export default function Home() {
+  const [user, setUser] = useState<SessionUser | undefined>(undefined)
   const [ceremony, setCeremony] = useState<Ceremony|undefined>(undefined)
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -20,6 +23,28 @@ export default function Home() {
   const [term, setTerm] = useState('Spring 2026');
   const [method, setMethod] = useState<string[]>([]);
   const canPost = title.trim().length > 0 && description.trim().length > 0 && ceremony !== undefined && method.length > 0;
+  const router = useRouter();
+  useEffect(() => {
+    getSessionUser().then(setUser)
+  }, [])
+  const postListing = async () => {
+    if (!canPost || !user) {
+      return;
+    }
+    const ver = user.email.endsWith('@ucsc.edu')
+    const newListing = {
+      ceremony: ceremony,
+      term: term,
+      member: user.id,
+      quantity: quantity,
+      title: title,
+      description: description,
+      method: method,
+      verified: ver,
+    }
+    await createNewListing(newListing)
+    router.push('/tickets')
+  }
   return (
     <>
       <Appbar title='New Post' />
@@ -129,7 +154,8 @@ export default function Home() {
             <Box sx={{borderRadius: '10px', p: '10px', mt: '20px', display: 'flex',
               justifyContent: 'center', cursor: canPost ? 'pointer' : 'default',
               bgcolor: canPost ? '#0b0931' : 'transparent',
-              border: '3px solid #0b0931'}}>
+              border: '3px solid #0b0931'}}
+              onClick={postListing}>
               <Typography variant='h5' sx={{color: canPost ? '#e1ba0c' : '#0b0931', fontWeight: 'bold'}}>
                 Post Listing
               </Typography>

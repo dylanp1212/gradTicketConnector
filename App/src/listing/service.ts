@@ -6,11 +6,20 @@ if (!isTest) {
   await import('server-only');
 }
 
-import {Listing, Options} from '.'
+import {Listing, NewListing, Options} from '.'
 
 const MS_URL = 'http://localhost:3003/api/v0/listing'
 
 export class ListingService {
+  public async createNewListing(listing: NewListing): Promise<Listing> {
+    const res = await fetch(MS_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(listing),
+    })
+    return res.json() as Promise<Listing>
+  }
+
   public async getListingById(id: string): Promise<Listing | null> {
     const res = await fetch(`${MS_URL}/${id}`)
     if (!res.ok) return null
