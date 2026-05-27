@@ -1,21 +1,22 @@
 'use client'
-import {Listing} from '../listing';
+
+import {Listing, Options} from '../listing';
 import {getAllListings} from '../listing/actions';
 import {useState, useEffect} from 'react';
 import TicketListItem from './ticketListItem'
 
 
-export default function TicketList() {
+export default function TicketList({options}: {options: Options}) {
   const empty: Listing[] = [];
   const [listings, setListings] = useState(empty);
   useEffect(() => {
     const getListings = async (): Promise<void> => {
-      const l = await getAllListings();
+      const l = await getAllListings(options);
       // console.log(l)
       setListings(l);
     }
     void getListings();
-  }, [])
+  }, [options])
   return (
     <>
       {listings.map((l, i) => (
