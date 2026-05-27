@@ -81,6 +81,25 @@ export class ListingService {
     return (rows[0].data)
   }
 
+  public async getAllListingsByMember(member: string): Promise<Listing[]> {
+    const q = `
+      SELECT data || jsonb_build_object('id', id) || jsonb_build_object('member', member) AS data
+      FROM listing
+      WHERE member = $1::uuid
+      ORDER BY data->>'listed' DESC
+    `;
+    const query = {
+      text: q,
+      values: [member],
+    };
+    const rows = (await pool.query<rowreturn>(query)).rows;
+    const listings = [];
+    for (const row of rows) {
+      listings.push(row.data);
+    }
+    return (listings);
+  }
+
   public async createListing(nl: NewListing): Promise<Listing> {
     const q = `
       INSERT INTO listing (member, data)

@@ -29,6 +29,11 @@ export class ListingController extends Controller {
     return listing
   }
 
+  @Get('member/{member}')
+  public async getAllListingsByMember(@Path() member: UUID): Promise<Listing[]> {
+    return new ListingService().getAllListingsByMember(member)
+  }
+
   @SuccessResponse(201, 'Created')
   @Post()
   public async createListing(@Body() body: NewListing): Promise<Listing> {
