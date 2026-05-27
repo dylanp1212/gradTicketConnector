@@ -10,17 +10,6 @@ interface memberrow {
 }
 
 export class MessageService {
-  public async getAllMessages(): Promise<Message[]> {
-    const q = `
-      SELECT data || jsonb_build_object('id', id) AS data 
-      FROM message 
-      ORDER BY id DESC
-    `;
-    const query = {text: q, values: []};
-    const rows = (await pool.query<rowreturn>(query)).rows;
-    return rows.map(r => r.data);
-  }
-
   public async createMessage(nm: NewMessage): Promise<Message> {
     const q = `
       INSERT INTO message(memberto, memberfrom, data)

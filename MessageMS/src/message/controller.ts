@@ -4,12 +4,7 @@ import {MessageService} from './service'
 
 @Route('message')
 export class MessageController extends Controller {
-  @Get('/')
-  public async getAllMessages(): Promise<Message[]> {
-    return new MessageService().getAllMessages();
-  }
-
-  @SuccessResponse(201, 'Created')
+@SuccessResponse(201, 'Created')
   @Post()
   public async createMessage(@Body() body: NewMessage): Promise<Message> {
     this.setStatus(201)
