@@ -5,6 +5,10 @@ interface rowreturn {
   data: Message,
 }
 
+interface memberrow {
+  partner: string,
+}
+
 export class MessageService {
   public async getAllMessages(): Promise<Message[]> {
     const q = `
@@ -51,5 +55,29 @@ export class MessageService {
       messages.push(row.data);
     }
     return (messages);
+  }
+
+  public async getAllConvos(id: string): Promise<string[]> {
+    const q = `
+      SELECT partner
+      FROM (
+        SELECT memberto AS partner, (data->>'sent')::timestamptz AS sent
+        FROM message
+        WHERE memberfrom = $1
+        UNION ALL
+        SELECT memberfrom AS partner, (data->>'sent')::timestamptz AS sent
+        FROM message
+        WHERE memberto = $1
+      ) t
+      GROUP BY partner
+      ORDER BY MAX(sent) DESC
+    `;
+    const query = {text: q, values: [id]};
+    const rows = (await pool.query<memberrow>(query)).rows;
+    const convos = [];
+    for (const row of rows) {
+      convos.push(row.partner);
+    }
+    return (convos);
   }
 }

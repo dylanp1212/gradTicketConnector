@@ -16,6 +16,11 @@ export class MessageController extends Controller {
     return new MessageService().createMessage(body)
   }
 
+  @Get('convos/{id}')
+  public async getAllConvos(@Path() id: UUID): Promise<string[]> {
+    return new MessageService().getAllConvos(id)
+  }
+
   @Get('convo/{member1}/{member2}')
   public async getConvo(
     @Path() member1: UUID,
