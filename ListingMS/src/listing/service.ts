@@ -1,5 +1,5 @@
 import {pool} from '../db'
-import {Listing, Options} from '.'
+import {Listing, Options, NewListing} from '.'
 
 interface rowreturn {
   data: Listing,
@@ -78,6 +78,33 @@ export class ListingService {
     if (rows.length < 1) {
       return (undefined)
     }
+    return (rows[0].data)
+  }
+
+  public async createListing(nl: NewListing): Promise<Listing> {
+    const q = `
+      INSERT INTO listing (member, data)
+      VALUES ($1::uuid,
+        jsonb_build_object(
+          'ceremony', $2::text,
+          'term', $3::text,
+          'listed', NOW(),
+          'quantity', $4::numeric,
+          'title', $5::text,
+          'description', $6::text,
+          'method', $7::text[],
+          'available', 'true'::jsonb,
+          'verified', $8::jsonb
+        )
+      )
+      RETURNING data || jsonb_build_object('id', id) || jsonb_build_object('member', member) AS data
+    `;
+    const query = {
+      text: q,
+      values: [nl.member, nl.ceremony, nl.term, nl.quantity, nl.title,
+        nl.description, nl.method, nl.verified],
+    };
+    const rows = (await pool.query<rowreturn>(query)).rows;
     return (rows[0].data)
   }
 }

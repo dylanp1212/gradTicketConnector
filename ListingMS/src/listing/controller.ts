@@ -1,5 +1,5 @@
-import {Controller, Get, Path, Query, Response, Route, SuccessResponse} from 'tsoa'
-import {Ceremony, Listing, UUID} from '.'
+import {Body, Controller, Get, Path, Post, Query, Response, Route, SuccessResponse} from 'tsoa'
+import {Ceremony, Listing, NewListing, UUID} from '.'
 import {ListingService} from './service'
 
 @Route('listing')
@@ -27,5 +27,12 @@ export class ListingController extends Controller {
       return undefined
     }
     return listing
+  }
+
+  @SuccessResponse(201, 'Created')
+  @Post()
+  public async createListing(@Body() body: NewListing): Promise<Listing> {
+    this.setStatus(201)
+    return new ListingService().createListing(body)
   }
 }
