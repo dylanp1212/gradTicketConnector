@@ -27,12 +27,12 @@ export default function TicketListItem({listing}: {listing: Listing}) {
   </Box>
   return (
     <Box sx={{border: '3px solid #0b0931', p: '20px', mx: '10px', mt: '10px',
-      mb: '20px', borderRadius: '10px'}}>
+      mb: '20px', borderRadius: '10px', bgcolor: '#adadb0', cursor: 'pointer'}}>
       <Box sx={{bgcolor: '#0b0931', display: 'flex', justifyContent: 'space-between',
         alignItems: 'center', borderRadius: '10px', p: '10px'}}>
         <Box sx={{display: 'flex', alignItems: 'center'}}>
           <Typography variant='h4' sx={{color: '#e1ba0c', fontWeight: 'bold'}}>
-            {fancyCeremony(listing.cerimony)}
+            {fancyCeremony(listing.ceremony)}
           </Typography>
           {listing.verified ? verified : ''}
         </Box>

@@ -4,7 +4,8 @@ export type UUID = string
 export type Ceremony = 'cowell' | 'stevenson' | 'crown' | 'merrill' | 'porter' | 'kresge' | 'oakes' | 'rcc' | 'c9' | 'jrl'
 
 export interface Listing {
-  cerimony: Ceremony
+  ceremony: Ceremony
+  term: string
   member: string
   listed: Date
   quantity: number
@@ -13,4 +14,13 @@ export interface Listing {
   method: string[]
   available: boolean
   verified: boolean
+}
+
+export interface Options {
+  ceremonies?: Ceremony[]
+  term?: string
+  quantity?: number
+  method?: string[]
+  available?: boolean
+  verified?: boolean
 }
