@@ -12,7 +12,7 @@ export default function TicketList({options}: {options: Options}) {
   const [listings, setListings] = useState(empty);
   useEffect(() => {
     const getListings = async (): Promise<void> => {
-      console.log(options)
+      // console.log(options)
       const l = await getAllListings(options);
       // console.log(l)
       setListings(l);

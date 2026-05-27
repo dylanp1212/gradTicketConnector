@@ -3,6 +3,10 @@
 import {Listing, NewListing, Options} from '.'
 import {ListingService} from './service'
 
+export async function getAllListingsByMember(member: string): Promise<Listing[]> {
+  return new ListingService().getAllListingsByMember(member);
+}
+
 export async function createNewListing(listing: NewListing): Promise<Listing> {
   return new ListingService().createNewListing(listing);
 }

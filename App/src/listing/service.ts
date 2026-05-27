@@ -11,6 +11,11 @@ import {Listing, NewListing, Options} from '.'
 const MS_URL = 'http://localhost:3003/api/v0/listing'
 
 export class ListingService {
+  public async getAllListingsByMember(member: string): Promise<Listing[]> {
+    const res = await fetch(`${MS_URL}/member/${member}`)
+    return res.json() as Promise<Listing[]>
+  }
+
   public async createNewListing(listing: NewListing): Promise<Listing> {
     const res = await fetch(MS_URL, {
       method: 'POST',
