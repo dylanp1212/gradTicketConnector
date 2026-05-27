@@ -12,6 +12,7 @@ export interface Listing {
   method: string[]
   available: boolean
   verified: boolean
+  name: string
 }
 
 export interface NewListing {
@@ -23,6 +24,7 @@ export interface NewListing {
   description: string
   method: string[]
   verified: boolean
+  name: string
 }
 
 export interface Options {

@@ -41,8 +41,10 @@ export default function Home() {
       description: description,
       method: method,
       verified: ver,
+      name: user.name,
     }
-    await createNewListing(newListing)
+    const x = await createNewListing(newListing)
+    // console.log(x)
     router.push('/tickets')
   }
   return (

@@ -35,7 +35,7 @@ export default function ListingViewer({listing}: {listing: Listing}) {
           by
         </Typography>
         <Typography sx={{color: '#0b0931', fontWeight: 'bold'}}>
-          *Place Holder*
+          {listing.name}
         </Typography>
         {listing.verified ? verified : ''}
       </Box>
@@ -86,7 +86,7 @@ export default function ListingViewer({listing}: {listing: Listing}) {
               Message
             </Typography>
             <Typography variant='body1' sx={{color: '#e1ba0c', fontWeight: 'bold', px: '10px'}}>
-              *Place Holder*
+              {listing.name}
             </Typography>
             <Typography variant='body1' sx={{color: '#e1ba0c'}}>
               about {listing.quantity > 1 ? 'these tickets' : 'this ticket'}
