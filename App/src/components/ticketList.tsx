@@ -4,6 +4,7 @@ import {Listing, Options} from '../listing';
 import {getAllListings} from '../listing/actions';
 import {useState, useEffect} from 'react';
 import TicketListItem from './ticketListItem'
+import NoMatches from './noMatches'
 
 
 export default function TicketList({options}: {options: Options}) {
@@ -11,6 +12,7 @@ export default function TicketList({options}: {options: Options}) {
   const [listings, setListings] = useState(empty);
   useEffect(() => {
     const getListings = async (): Promise<void> => {
+      console.log(options)
       const l = await getAllListings(options);
       // console.log(l)
       setListings(l);
@@ -22,6 +24,7 @@ export default function TicketList({options}: {options: Options}) {
       {listings.map((l, i) => (
         <TicketListItem key={i} listing={l} />
       ))}
+      {listings.length == 0 ? <NoMatches /> : ''}
     </>
   )
 }

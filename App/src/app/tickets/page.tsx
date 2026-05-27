@@ -12,7 +12,7 @@ import {Options} from '../listing'
 export default function Home() {
   // change to read from url params
   const defaultoptions = {term: 'Spring 2026', available: true}
-  const [options, setOptions] = useState<Options>()
+  const [options, setOptions] = useState<Options>(defaultoptions)
   return (
     <>
       <Appbar title='Browse Tickets' />
