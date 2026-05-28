@@ -32,8 +32,7 @@ VALUES (
     'description',E'2 tickets to college 9 graduation\nwilling to give away to first come first serve',
     'method',jsonb_build_array('give'),
     'available','true'::jsonb,
-    'verified','true'::jsonb,
-    'name','Marty Member'
+    'verified','true'::jsonb
   )
 );
 
@@ -50,8 +49,7 @@ VALUES (
     'description',E'1 tickets to baskin grad\nasking $25',
     'method',jsonb_build_array('sell'),
     'available','true'::jsonb,
-    'verified','false'::jsonb,
-    'name','Mark Member'
+    'verified','false'::jsonb
   )
 );
 
@@ -68,9 +66,9 @@ VALUES (
     'description',E'2 ticket to crown grad\nwilling to sell or trade\nprice negotiable, hoping for tickets to see friend graduate in Porter',
     'method',jsonb_build_array('sell', 'trade'),
     'available','false'::jsonb,
-    'verified','true'::jsonb,
-    'name','Marty Member'
+    'verified','true'::jsonb
   )
 );
 
 DELETE FROM message;
+DELETE FROM saved;

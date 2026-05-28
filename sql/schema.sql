@@ -18,3 +18,11 @@ CREATE TABLE message(
   memberfrom UUID NOT NULL REFERENCES member(id) ON DELETE CASCADE,
   data jsonb
 );
+
+DROP TABLE IF EXISTS saved CASCADE;
+CREATE TABLE saved(
+  member UUID NOT NULL REFERENCES member(id) ON DELETE CASCADE,
+  listing UUID NOT NULL REFERENCES listing(id) ON DELETE CASCADE,
+  data jsonb,
+  PRIMARY KEY (member, listing)
+);

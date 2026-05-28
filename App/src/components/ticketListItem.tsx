@@ -4,6 +4,12 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import {useRouter} from 'next/navigation';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import IconButton from '@mui/material/IconButton';
+import {useState, useEffect} from 'react'
+import {checkSaved, saveListing, removeSavedListing} from '../saved/actions'
+import {SessionUser} from '../auth'
 
 import {Listing, Ceremony} from '../listing'
 
@@ -27,8 +33,31 @@ export const verified = <Box sx={{display: 'flex', alignItems: 'center'}}>
   </Typography>
 </Box>
 
-export default function TicketListItem({listing}: {listing: Listing}) {
+export default function TicketListItem({listing, user}: {listing: Listing, user: SessionUser | undefined}) {
   const router = useRouter();
+  const [saved, setSaved] = useState<boolean>(false)
+  useEffect(() => {
+    const checkIfSaved = async (): Promise<void> => {
+      if (!user) return
+      const s = await checkSaved(user.id, listing.id)
+      setSaved(s)
+    }
+    void checkIfSaved()
+  }, [listing.id, user])
+  const saveClick = async (e) => {
+    e.stopPropagation()
+    if (!user) {
+      router.push('/login')
+      return;
+    }
+    if (saved) {
+      await removeSavedListing(user.id, listing.id)
+      setSaved(false)
+    } else {
+      await saveListing(user.id, listing.id)
+      setSaved(true)
+    }
+  }
   return (
     <Box sx={{border: '3px solid #0b0931', p: '20px', mx: '10px', mt: '10px',
       mb: '20px', borderRadius: '10px', bgcolor: '#adadb0', cursor: 'pointer'}}
@@ -41,9 +70,15 @@ export default function TicketListItem({listing}: {listing: Listing}) {
           </Typography>
           {listing.verified ? verified : ''}
         </Box>
-        <Typography variant='h6' sx={{color: '#e1ba0c', fontWeight: 'bold'}}>
-          Ticket Quantity: {listing.quantity}
-        </Typography>
+        <Box sx={{display: 'flex', alignItems: 'center'}}>
+          <Typography variant='h6' sx={{color: '#e1ba0c', fontWeight: 'bold'}}>
+            Ticket Quantity: {listing.quantity}
+          </Typography>
+          <IconButton aria-label={saved ? 'unsave listing' : 'save listing'}
+            onClick={saveClick}>
+            {saved ? <BookmarkIcon sx={{color: '#e1ba0c'}} /> : <BookmarkBorderIcon sx={{color: '#e1ba0c'}} />}
+          </IconButton>
+        </Box>
       </Box>
       <Box sx={{border: '3px solid #0b0931', borderRadius: '10px', p: '10px', mt: '10px',
         display: 'flex', justifyContent: 'space-between'}}>
