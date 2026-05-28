@@ -8,6 +8,7 @@ import {useState, useEffect} from 'react';
 import {Listing} from '../../listing'
 import {getListingById} from '../../listing/actions'
 import ListingViewer from '../../components/listingViewer'
+import NotFound from '../../components/notFound'
 
 const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 export default function Page() {
@@ -27,16 +28,13 @@ export default function Page() {
     void getListing();
   }, [id])
 
-  if (!id || !(uuidRegex.test(id))) {
-    return (<>not found</>)
-  }
   return (
     <>
       <Appbar title='View Ticket' />
       <Box sx={{p: '20px'}}>
-        {listing ? (<>
+        {listing && id && (uuidRegex.test(id)) ? (<>
           <ListingViewer listing={listing}/>
-        </>) : <>not found</>}
+        </>) : <NotFound />}
       </Box>
     </>
   )
