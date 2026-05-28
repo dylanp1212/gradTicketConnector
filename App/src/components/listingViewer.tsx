@@ -13,8 +13,12 @@ import {getSessionUser} from '../auth/actions'
 import {getMemberName} from '../member/actions'
 import {editQuantity, editMethod, editAvailable} from '../listing/actions'
 import {fancyCeremony, formatDate} from './ticketListItem'
+import {createMessage} from '../message/actions'
+import {useRouter} from 'next/navigation';
+
 
 export default function ListingViewer({listing: initialListing}: {listing: Listing}) {
+  const router = useRouter();
   const [listing, setListing] = useState(initialListing)
   const [user, setUser] = useState<SessionUser | undefined>(undefined)
   const [quantity, setQuantity] = useState(listing.quantity)
@@ -30,6 +34,20 @@ export default function ListingViewer({listing: initialListing}: {listing: Listi
     }
     void getName();
   }, [listing])
+  const messageclick = async () => {
+    if (!user) {
+      router.push('/login')
+      return;
+    }
+    if (!name) return;
+    const message = {
+      memberto: listing.member,
+      memberfrom: user.id,
+      content: `Hi ${name}! I'm interested in the ${listing.quantity} ticket${listing.quantity > 1 ? 's' : ''} for ${fancyCeremony(listing.ceremony)}!`,
+    }
+    await createMessage(message)
+    router.push('/messages')
+  }
   const verified = <Box sx={{display: 'flex', alignItems: 'center'}}>
     <VerifiedUserIcon sx={{color: '#0b0931', pl: '10px'}} />
     <Typography variant='caption' sx={{color: '#0b0931', pl: '5px'}}>
@@ -157,13 +175,14 @@ export default function ListingViewer({listing: initialListing}: {listing: Listi
               </Box>
             </Box>
           : <Box sx={{bgcolor: '#0b0931', borderRadius: '10px', p: '10px', display: 'flex',
-              justifyContent: 'center', alignItems: 'center', cursor: 'pointer'}}>
+              justifyContent: 'center', alignItems: 'center', cursor: 'pointer'}}
+              onClick={messageclick}>
               <Box sx={{display: 'flex'}}>
                 <Typography variant='body1' sx={{color: '#e1ba0c'}}>
                   Message
                 </Typography>
                 <Typography variant='body1' sx={{color: '#e1ba0c', fontWeight: 'bold', px: '10px'}}>
-                  {listing.name}
+                  {name}
                 </Typography>
                 <Typography variant='body1' sx={{color: '#e1ba0c'}}>
                   about {listing.quantity > 1 ? 'these tickets' : 'this ticket'}
