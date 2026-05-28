@@ -13,6 +13,7 @@ import {fancyCeremony} from '../../components/ticketListItem'
 import {getSessionUser} from '../../auth/actions'
 import {createNewListing} from '../../listing/actions'
 import AddIcon from '@mui/icons-material/Add';
+import {SessionUser} from '../../auth'
 
 
 export default function Page() {
@@ -26,7 +27,7 @@ export default function Page() {
   const canPost = title.trim().length > 0 && title.length <= 50 && description.trim().length > 0 && description.length <= 300 && ceremony !== undefined && method.length > 0;
   const router = useRouter();
   useEffect(() => {
-    getSessionUser().then(setUser)
+    void getSessionUser().then(setUser)
   }, [])
   const postListing = async () => {
     if (!canPost || !user) {
@@ -43,7 +44,7 @@ export default function Page() {
       method: method,
       verified: ver,
     }
-    const x = await createNewListing(newListing)
+    await createNewListing(newListing)
     // console.log(x)
     router.push('/tickets')
   }
@@ -57,10 +58,10 @@ export default function Page() {
                 Title
               </Typography>
               <TextField fullWidth value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={(e) => { setTitle(e.target.value); }}
                 variant="outlined"
                 error={title.length > 50}
-                helperText={`${title.length}/50`}
+                helperText={`${String(title.length)}/50`}
                 slotProps={{htmlInput: {'style': {fontSize: '30px', color: '#0b0931'},
                   'aria-label': 'title'}}}
               />
@@ -70,10 +71,10 @@ export default function Page() {
                 Description
               </Typography>
               <TextField fullWidth multiline rows={7} value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  onChange={(e) => { setDescription(e.target.value); }}
                   variant="outlined"
                   error={description.length > 300}
-                  helperText={`${description.length}/300`}
+                  helperText={`${String(description.length)}/300`}
                 slotProps={{htmlInput: {'style': {fontSize: '15', color: '#0b0931'},
                   'aria-label': 'description'}}}
               />
@@ -98,7 +99,7 @@ export default function Page() {
               {(['cowell', 'stevenson', 'crown', 'merrill', 'porter', 'kresge', 'oakes', 'rcc', 'c9', 'jrl', 'baskin'] as Ceremony[]).map((c) => {
                 const selected = ceremony === c
                 return (
-                  <Box key={c} onClick={() => setCeremony(c)}
+                  <Box key={c} onClick={() => { setCeremony(c); }}
                     sx={{px: '10px', py: '4px', borderRadius: '6px', cursor: 'pointer', border: '2px solid #0b0931',
                       bgcolor: selected ? '#0b0931' : 'transparent'}}>
                     <Typography sx={{color: selected ? '#e1ba0c' : '#0b0931', fontWeight: 600, fontSize: '0.85rem'}}>
@@ -116,7 +117,7 @@ export default function Page() {
                     Quantity
                   </Typography>
                   <TextField type='number' value={quantity}
-                    onChange={(e) => setQuantity(Math.min(5, Math.max(1, Number(e.target.value))))}
+                    onChange={(e) => { setQuantity(Math.min(5, Math.max(1, Number(e.target.value)))); }}
                     variant='outlined'
                     slotProps={{htmlInput: {min: 1, max: 5, style: {fontSize: '15px', color: '#0b0931', fontWeight: 'bold'}}}}
                     sx={{width: '80px'}}
@@ -127,7 +128,7 @@ export default function Page() {
                   <Typography variant='h4' sx={{color: '#0b0931', fontWeight: 'bold'}}>
                     Term
                   </Typography>
-                  <Select value={term} onChange={(e) => setTerm(e.target.value)}
+                  <Select value={term} onChange={(e) => { setTerm(e.target.value); }}
                     sx={{color: '#0b0931', fontWeight: 600,
                       '& .MuiOutlinedInput-notchedOutline': {borderColor: '#0b0931'},
                       '& .MuiSvgIcon-root': {color: '#0b0931'}}}>
@@ -145,7 +146,7 @@ export default function Page() {
                   {(['sell', 'give', 'trade'] as const).map((m) => {
                     const selected = method.includes(m)
                     return (
-                      <Box key={m} onClick={() => setMethod(prev => selected ? prev.filter(x => x !== m) : [...prev, m])}
+                      <Box key={m} onClick={() => { setMethod(prev => selected ? prev.filter(x => x !== m) : [...prev, m]); }}
                         sx={{px: '10px', py: '4px', borderRadius: '6px', cursor: 'pointer', border: '2px solid #0b0931',
                           bgcolor: selected ? '#0b0931' : 'transparent'}}>
                         <Typography sx={{color: selected ? '#e1ba0c' : '#0b0931', fontWeight: 600, fontSize: '0.85rem'}}>
@@ -161,7 +162,7 @@ export default function Page() {
               justifyContent: 'center', cursor: canPost ? 'pointer' : 'default',
               bgcolor: canPost ? '#0b0931' : 'transparent',
               border: '3px solid #0b0931', alignItems: 'center'}}
-              onClick={postListing}>
+              onClick={() => void postListing()}>
               <Typography variant='h5' sx={{color: canPost ? '#e1ba0c' : '#0b0931', fontWeight: 'bold'}}>
                 Post Listing
               </Typography>

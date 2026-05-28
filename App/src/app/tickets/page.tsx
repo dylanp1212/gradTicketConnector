@@ -6,7 +6,7 @@ import Appbar from '../../components/appbar'
 import TicketList from '../../components/ticketList'
 import FilterBar from '../../components/filterBar'
 import {useState} from 'react'
-import {Options} from '../listing'
+import {Options} from '../../listing'
 
 
 export default function Page() {
