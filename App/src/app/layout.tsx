@@ -2,6 +2,9 @@ import * as React from 'react'
 
 export const metadata = {
   title: 'UCSC Grad Ticket Connector',
+  icons: {
+    icon: '/2-bump-ticket-filled.png',
+  }
 }
 
 export default function RootLayout({
