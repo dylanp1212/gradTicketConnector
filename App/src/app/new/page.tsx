@@ -22,7 +22,7 @@ export default function Page() {
   const [quantity, setQuantity] = useState(1);
   const [term, setTerm] = useState('Spring 2026');
   const [method, setMethod] = useState<string[]>([]);
-  const canPost = title.trim().length > 0 && description.trim().length > 0 && ceremony !== undefined && method.length > 0;
+  const canPost = title.trim().length > 0 && title.length <= 50 && description.trim().length > 0 && description.length <= 300 && ceremony !== undefined && method.length > 0;
   const router = useRouter();
   useEffect(() => {
     getSessionUser().then(setUser)
@@ -58,6 +58,8 @@ export default function Page() {
               <TextField fullWidth value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 variant="outlined"
+                error={title.length > 50}
+                helperText={`${title.length}/50`}
                 slotProps={{htmlInput: {'style': {fontSize: '30px', color: '#0b0931'},
                   'aria-label': 'title'}}}
               />
@@ -69,8 +71,10 @@ export default function Page() {
               <TextField fullWidth multiline rows={7} value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   variant="outlined"
+                  error={description.length > 300}
+                  helperText={`${description.length}/300`}
                 slotProps={{htmlInput: {'style': {fontSize: '15', color: '#0b0931'},
-                  'aria-label': 'title'}}}
+                  'aria-label': 'description'}}}
               />
             </Box>
           </Box>

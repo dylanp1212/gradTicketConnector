@@ -82,11 +82,12 @@ export default function TicketListItem({listing, user}: {listing: Listing, user:
       </Box>
       <Box sx={{border: '3px solid #0b0931', borderRadius: '10px', p: '10px', mt: '10px',
         display: 'flex', justifyContent: 'space-between'}}>
-        <Box>
-          <Typography variant='h6' sx={{color: '#0b0931', fontWeight: 'bold'}}>
+        <Box sx={{minWidth: 0, flex: 1, pr: '10px'}}>
+          <Typography variant='h6' sx={{color: '#0b0931', fontWeight: 'bold',
+            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
             {listing.title}
           </Typography>
-          <Typography variant='body1' sx={{color: '#0b0931', whiteSpace: 'pre-wrap'}}>
+          <Typography variant='body1' sx={{color: '#0b0931', whiteSpace: 'pre-wrap', wordBreak: 'break-word'}}>
             {listing.description}
           </Typography>
         </Box>
