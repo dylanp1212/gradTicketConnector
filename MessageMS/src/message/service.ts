@@ -11,20 +11,23 @@ interface memberrow {
 
 export class MessageService {
   public async createMessage(nm: NewMessage): Promise<Message> {
+    const hasListing = nm.listing != null && nm.listingtitle != null
     const q = `
       INSERT INTO message(memberto, memberfrom, data)
       VALUES ($1::uuid, $2::uuid,
         jsonb_build_object(
           'content', $3::text,
           'sent', NOW()
-        )
+        ) ${hasListing ? `|| jsonb_build_object('listing', $4::text, 'listingtitle', $5::text)` : ''}
       )
       RETURNING data || jsonb_build_object('id', id)
         || jsonb_build_object('memberto', memberto)
         || jsonb_build_object('memberfrom', memberfrom) AS data
     `;
-    const query = {text: q, values: [nm.memberto, nm.memberfrom, nm.content]};
-    const rows = (await pool.query<rowreturn>(query)).rows;
+    const values = hasListing
+      ? [nm.memberto, nm.memberfrom, nm.content, nm.listing, nm.listingtitle]
+      : [nm.memberto, nm.memberfrom, nm.content]
+    const rows = (await pool.query<rowreturn>({text: q, values})).rows;
     return (rows[0].data)
   }
 

@@ -8,6 +8,7 @@ export interface Message {
   content: string
   sent: Date
   listing?: string
+  listingtitle?: string
 }
 
 export interface NewMessage {
@@ -15,4 +16,5 @@ export interface NewMessage {
   memberfrom: string
   content: string
   listing?: string
+  listingtitle?: string
 }

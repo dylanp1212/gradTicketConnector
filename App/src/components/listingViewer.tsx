@@ -43,9 +43,17 @@ export default function ListingViewer({listing: initialListing}: {listing: Listi
     const message = {
       memberto: listing.member,
       memberfrom: user.id,
-      content: `Hi ${name}! I'm interested in the ${listing.quantity} ticket${listing.quantity > 1 ? 's' : ''} for ${fancyCeremony(listing.ceremony)}!`,
+      content: `Hi ${name}! I'm interested in the ${listing.quantity} ticket${listing.quantity > 1 ? 's' : ''} for ${fancyCeremony(listing.ceremony)} Graduation!`,
     }
     await createMessage(message)
+    const listingMessage = {
+      memberto: listing.member,
+      memberfrom: user.id,
+      content: listing.title,
+      listing: listing.id,
+      listingtitle: listing.title,
+    }
+    await createMessage(listingMessage)
     router.push('/messages')
   }
   const verified = <Box sx={{display: 'flex', alignItems: 'center'}}>
