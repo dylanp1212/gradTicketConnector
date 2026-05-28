@@ -41,7 +41,6 @@ export default function Page() {
       description: description,
       method: method,
       verified: ver,
-      name: user.name,
     }
     const x = await createNewListing(newListing)
     // console.log(x)

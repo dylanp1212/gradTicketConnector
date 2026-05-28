@@ -1,6 +1,7 @@
 import express, { Express, Request, Response, NextFunction } from 'express'
 import cors from 'cors'
 import authRouter from './auth/router'
+import memberRouter from './member/router'
 
 const app: Express = express()
 
@@ -9,6 +10,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.use('/api/v0', authRouter)
+app.use('/api/v0', memberRouter)
 
 app.get('/api/v0/health', (_req: Request, res: Response) => {
   res.json({ status: 'ok' })

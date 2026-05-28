@@ -1,9 +1,20 @@
+'use-client'
+
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import {useContext} from 'react'
+import {useContext, useEffect, useState} from 'react'
 import {Messagecontext} from '../app/messages/messagecontext'
+import {getMemberName} from '../member/actions'
 
 export default function ConvoListItem({id}: {id: string}) {
+  const [name, setName] = useState('')
+  useEffect(() => {
+    const getname = async (): Promise<void> => {
+      const n = await getMemberName(id);
+      setName(n);
+    }
+    void getname();
+  }, [id])
   const ctx = useContext(Messagecontext);
   if (!ctx) {
     return (null);
@@ -15,7 +26,7 @@ export default function ConvoListItem({id}: {id: string}) {
       p: '20px', cursor: 'pointer'}}
       onClick={() => setCurrconvo(id)}>
       <Typography noWrap variant="h6" sx={{color: (currconvo == id ? '#e1ba0c' : '#0b0931'), fontWeight: 'bold', overflow: 'hidden', textOverflow: 'ellipsis'}}>
-        {id}
+        {name}
       </Typography>
     </Box>
   )

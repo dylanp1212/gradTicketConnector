@@ -113,8 +113,7 @@ export class ListingService {
           'description', $6::text,
           'method', $7::text[],
           'available', 'true'::jsonb,
-          'verified', $8::jsonb,
-          'name', $9::text
+          'verified', $8::jsonb
         )
       )
       RETURNING data || jsonb_build_object('id', id) || jsonb_build_object('member', member) AS data
@@ -122,7 +121,7 @@ export class ListingService {
     const query = {
       text: q,
       values: [nl.member, nl.ceremony, nl.term, nl.quantity, nl.title,
-        nl.description, nl.method, nl.verified, nl.name],
+        nl.description, nl.method, nl.verified],
     };
     const rows = (await pool.query<rowreturn>(query)).rows;
     return (rows[0].data)

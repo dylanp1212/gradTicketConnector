@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField';
 import {Listing} from '../listing'
 import {SessionUser} from '../auth'
 import {getSessionUser} from '../auth/actions'
+import {getMemberName} from '../member/actions'
 import {editQuantity, editMethod, editAvailable} from '../listing/actions'
 import {fancyCeremony, formatDate} from './ticketListItem'
 
@@ -18,9 +19,17 @@ export default function ListingViewer({listing: initialListing}: {listing: Listi
   const [user, setUser] = useState<SessionUser | undefined>(undefined)
   const [quantity, setQuantity] = useState(listing.quantity)
   const [method, setMethod] = useState<string[]>(listing.method)
+  const [name, setName] = useState('')
   useEffect(() => {
     getSessionUser().then(setUser)
   }, [])
+  useEffect(() => {
+    const getName = async (): Promise<void> => {
+      const n = await getMemberName(listing.member);
+      setName(n);
+    }
+    void getName();
+  }, [listing])
   const verified = <Box sx={{display: 'flex', alignItems: 'center'}}>
     <VerifiedUserIcon sx={{color: '#0b0931', pl: '10px'}} />
     <Typography variant='caption' sx={{color: '#0b0931', pl: '5px'}}>
@@ -49,7 +58,7 @@ export default function ListingViewer({listing: initialListing}: {listing: Listi
           by
         </Typography>
         <Typography sx={{color: '#0b0931', fontWeight: 'bold'}}>
-          {listing.name}
+          {name}
         </Typography>
         {listing.verified ? verified : ''}
       </Box>
