@@ -7,12 +7,12 @@ export default function Page() {
     <>
       <Appbar title='UCSC Grad Ticket Connector' />
       <Box sx={{p: '20px'}}>
-        <Box sx={{border: '5px solid #e1ba0c', borderRadius: '4px', p: '10px', bgcolor: '#0b0931', width: '50%'}}>
+        <Box sx={{border: '3px solid #e1ba0c', borderRadius: '4px', p: '10px', bgcolor: '#0b0931', width: '50%'}}>
           <Typography variant='h2' sx={{color: '#e1ba0c', fontWeight: 'bold'}}>
             Welcome to the UCSC Grad Ticket Connector!
           </Typography>
         </Box>
-        <Box sx={{border: '5px solid #e1ba0c', borderRadius: '4px', p: '10px', mt: '20px', bgcolor: '#0b0931', width: '50%'}}>
+        <Box sx={{border: '3px solid #e1ba0c', borderRadius: '4px', p: '10px', mt: '20px', bgcolor: '#0b0931', width: '50%'}}>
           <Typography variant='h5' sx={{color: '#e1ba0c', fontWeight: 'bold'}}>
             This student built site has one simple goal: match people with extra UCSC graduation tickets with people who need extra UCSC graduation tickets.
           </Typography>
@@ -22,14 +22,19 @@ export default function Page() {
             This site connects people who need tickets with people who have them.            
           </Typography>
         </Box>
-        <Box sx={{border: '5px solid #e1ba0c', borderRadius: '4px', p: '10px', mt: '20px', bgcolor: '#0b0931', width: '50%'}}>
+        <Box sx={{border: '3px solid #e1ba0c', borderRadius: '4px', p: '10px', mt: '20px', bgcolor: '#0b0931', width: '50%'}}>
           <Typography variant='h5' sx={{color: '#e1ba0c'}}>
-            Click here to post extra tickets!
+            Click here to list your extra tickets!
           </Typography>
         </Box>
-        <Box sx={{border: '5px solid #e1ba0c', borderRadius: '4px', p: '10px', mt: '20px', bgcolor: '#0b0931', width: '50%'}}>
+        <Box sx={{border: '3px solid #e1ba0c', borderRadius: '4px', p: '10px', mt: '20px', bgcolor: '#0b0931', width: '50%'}}>
           <Typography variant='h5' sx={{color: '#e1ba0c'}}>
-            Click here to search, filter, and browse tickets!
+            Click here to browse, filter, and save tickets!
+          </Typography>
+        </Box>
+        <Box sx={{p: '10px', width: '50%'}}>
+          <Typography variant='body1' sx={{color: '#0b0931'}}>
+            Not affiliated with UCSC. Be wary of fake listings.
           </Typography>
         </Box>
       </Box>

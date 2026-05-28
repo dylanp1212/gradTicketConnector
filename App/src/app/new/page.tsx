@@ -12,6 +12,7 @@ import {Ceremony} from '../../listing'
 import {fancyCeremony} from '../../components/ticketListItem'
 import {getSessionUser} from '../../auth/actions'
 import {createNewListing} from '../../listing/actions'
+import AddIcon from '@mui/icons-material/Add';
 
 
 export default function Page() {
@@ -159,11 +160,12 @@ export default function Page() {
             <Box sx={{borderRadius: '10px', p: '10px', mt: '20px', display: 'flex',
               justifyContent: 'center', cursor: canPost ? 'pointer' : 'default',
               bgcolor: canPost ? '#0b0931' : 'transparent',
-              border: '3px solid #0b0931'}}
+              border: '3px solid #0b0931', alignItems: 'center'}}
               onClick={postListing}>
               <Typography variant='h5' sx={{color: canPost ? '#e1ba0c' : '#0b0931', fontWeight: 'bold'}}>
                 Post Listing
               </Typography>
+              <AddIcon fontSize="large" sx={{color: canPost ? '#e1ba0c' : '#0b0931'}} />
             </Box>
           </Box>
         </Box>
