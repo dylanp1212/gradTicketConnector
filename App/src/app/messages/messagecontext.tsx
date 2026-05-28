@@ -1,18 +1,18 @@
 'use client'
 
-import {createContext, useState, React} from 'react';
+import {createContext, useState, ReactNode, Dispatch, SetStateAction} from 'react';
 
 interface messagecontexttype {
-  currconvo: string
-  setCurrconvo: React.Dispatch<React.SetStateAction<string>>
+  currconvo: string | null
+  setCurrconvo: Dispatch<SetStateAction<string|null>>
   refresh: number
-  setRefresh: React.Dispatch<React.SetStateAction<number>>
+  setRefresh: Dispatch<SetStateAction<number>>
 }
 
 const Messagecontext = createContext<messagecontexttype|null>(null);
 
 
-function Messageprovider(props: {children: React.ReactNode}) {
+function Messageprovider(props: {children: ReactNode}) {
   const [currconvo, setCurrconvo] = useState<string|null>(null)
   const [refresh, setRefresh] = useState(0)
   const context = {currconvo, setCurrconvo, refresh, setRefresh};
