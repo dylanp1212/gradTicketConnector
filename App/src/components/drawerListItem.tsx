@@ -7,6 +7,7 @@ import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import MailIcon from '@mui/icons-material/Mail';
+import AddIcon from '@mui/icons-material/Add';
 import {useRouter} from 'next/navigation';
 
 export default function DrawerListItem({title}: {title: string}) {
@@ -29,7 +30,11 @@ export default function DrawerListItem({title}: {title: string}) {
   } else if (title == 'Messages') {
     icon = <MailIcon sx={iconsx}/>
     link = '/messages'
+  } else if (title == 'List Tickets') {
+    icon = <AddIcon sx={iconsx}/>
+    link = '/new'
   }
+
   return (
     <Box sx={{display: 'flex', alignItems: 'center',
       borderBottom: '1px solid #68676c', p: '10px', cursor: 'pointer'}}

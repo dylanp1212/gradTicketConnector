@@ -9,7 +9,7 @@ import SignInOutButton from './SignInOutButton';
 
 export default function DrawerList() {
   const router = useRouter();
-  const pages = ['Home', 'Browse Tickets', 'My Tickets', 'Saved Tickets',
+  const pages = ['Home', 'Browse Tickets', 'My Tickets', 'List Tickets', 'Saved Tickets',
     'Messages']
   return (
     <Box sx={{width: 250}}>

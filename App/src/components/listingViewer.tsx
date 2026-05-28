@@ -19,6 +19,7 @@ import {useRouter} from 'next/navigation';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import IconButton from '@mui/material/IconButton';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 
 export default function ListingViewer({listing: initialListing}: {listing: Listing}) {
@@ -91,6 +92,14 @@ export default function ListingViewer({listing: initialListing}: {listing: Listi
   </Box>
   return (
     <Box>
+      <Box sx={{display: 'flex', alignItems: 'center', mb: '5px'}}>
+        <Box sx={{cursor: 'pointer'}} onClick={() => window.history.length > 2 ? router.back() : router.push('/tickets')}>
+          <ArrowBackIosIcon sx={{color: '#e1b0b0931a0c', fontSize: '10px', pr: '5px'}} />
+          <Typography variant='caption' sx={{color: '#0b0931', fontWeight: 'bold'}}>
+            Back
+          </Typography>
+        </Box>
+      </Box>
       <Box sx={{bgcolor: '#0b0931', display: 'flex', justifyContent: 'space-between',
         alignItems: 'center', borderRadius: '10px', p: '20px', border: '2px solid #e1ba0c'}}>
         <Typography variant='h4' sx={{color: '#e1ba0c', fontWeight: 'bold'}}>
