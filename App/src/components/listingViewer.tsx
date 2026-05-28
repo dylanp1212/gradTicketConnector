@@ -14,7 +14,11 @@ import {getMemberName} from '../member/actions'
 import {editQuantity, editMethod, editAvailable} from '../listing/actions'
 import {fancyCeremony, formatDate} from './ticketListItem'
 import {createMessage} from '../message/actions'
+import {checkSaved, saveListing, removeSavedListing} from '../saved/actions'
 import {useRouter} from 'next/navigation';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import IconButton from '@mui/material/IconButton';
 
 
 export default function ListingViewer({listing: initialListing}: {listing: Listing}) {
@@ -24,9 +28,18 @@ export default function ListingViewer({listing: initialListing}: {listing: Listi
   const [quantity, setQuantity] = useState(listing.quantity)
   const [method, setMethod] = useState<string[]>(listing.method)
   const [name, setName] = useState('')
+  const [saved, setSaved] = useState(false)
   useEffect(() => {
     getSessionUser().then(setUser)
   }, [])
+  useEffect(() => {
+    const checkIfSaved = async (): Promise<void> => {
+      if (!user) return
+      const s = await checkSaved(user.id, listing.id)
+      setSaved(s)
+    }
+    void checkIfSaved()
+  }, [listing.id, user])
   useEffect(() => {
     const getName = async (): Promise<void> => {
       const n = await getMemberName(listing.member);
@@ -34,6 +47,20 @@ export default function ListingViewer({listing: initialListing}: {listing: Listi
     }
     void getName();
   }, [listing])
+  const saveClick = async (e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (!user) {
+      router.push('/login')
+      return;
+    }
+    if (saved) {
+      await removeSavedListing(user.id, listing.id)
+      setSaved(false)
+    } else {
+      await saveListing(user.id, listing.id)
+      setSaved(true)
+    }
+  }
   const messageclick = async () => {
     if (!user) {
       router.push('/login')
@@ -73,28 +100,38 @@ export default function ListingViewer({listing: initialListing}: {listing: Listi
           Ticket Quantity: {listing.quantity}
         </Typography>
       </Box>
-      <Box sx={{display: 'flex', alignItems: 'center', mt: '10px'}}>
-        <Typography sx={{p: '10px', color: '#0b0931'}}>
-          Listed on
-        </Typography>
-        <Typography variant='body1' sx={{color: '#0b0931', fontWeight: 'bold'}}>
-          {formatDate(new Date(listing.listed))}, {new Date(listing.listed).getFullYear()}
-        </Typography>
-        <Typography sx={{p: '10px', color: '#0b0931'}}>
-          by
-        </Typography>
-        <Typography sx={{color: '#0b0931', fontWeight: 'bold'}}>
-          {name}
-        </Typography>
-        {listing.verified ? verified : ''}
+      <Box sx={{display: 'flex', alignItems: 'center', mt: '10px', justifyContent: 'space-between'}}>
+        <Box sx={{display: 'flex', alignItems: 'center'}}>
+          <Typography sx={{p: '10px', color: '#0b0931'}}>
+            Listed on
+          </Typography>
+          <Typography variant='body1' sx={{color: '#0b0931', fontWeight: 'bold'}}>
+            {formatDate(new Date(listing.listed))}, {new Date(listing.listed).getFullYear()}
+          </Typography>
+          <Typography sx={{p: '10px', color: '#0b0931'}}>
+            by
+          </Typography>
+          <Typography sx={{color: '#0b0931', fontWeight: 'bold'}}>
+            {name}
+          </Typography>
+          {listing.verified ? verified : ''}
+        </Box>
+        <Box sx={{display: 'flex', alignItems: 'center'}}>
+          <Typography sx={{p: '5px', color: '#0b0931'}}>
+            {saved ? 'Unsave' : 'Save'}
+          </Typography>
+          <IconButton aria-label={saved ? 'unsave listing' : 'save listing'} onClick={saveClick}>
+            {saved ? <BookmarkIcon fontSize="large" sx={{color: '#0b0931'}} /> : <BookmarkBorderIcon fontSize="large" sx={{color: '#0b0931'}} />}
+          </IconButton>
+        </Box>
       </Box>
-      <Box sx={{border: '3px solid #0b0931', borderRadius: '10px', p: '10px', mt: '10px',
+      <Box sx={{border: '3px solid #0b0931', borderRadius: '10px', py: '10px', px: '15px', mt: '10px',
         display: 'flex', justifyContent: 'space-between', bgcolor: '#adadb0'}}>
           <Typography variant='h4' sx={{color: '#0b0931', fontWeight: 'bold'}}>
             {listing.title}
           </Typography>
       </Box>
-      <Box sx={{border: '3px solid #0b0931', borderRadius: '10px', p: '10px', mt: '10px',
+      <Box sx={{border: '3px solid #0b0931', borderRadius: '10px', py: '10px', px: '15px', mt: '10px',
         display: 'flex', justifyContent: 'space-between', bgcolor: '#adadb0'}}>
           <Typography variant='h6' sx={{color: '#0b0931', whiteSpace: 'pre-wrap'}}>
             {listing.description}

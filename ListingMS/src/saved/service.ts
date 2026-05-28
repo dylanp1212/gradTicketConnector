@@ -45,10 +45,10 @@ export class ListingService {
 
   public async getAllSavedListings(id: string): Promise<Listing[]> {
     const q = `
-      SELECT data || jsonb_build_object('id', id) || jsonb_build_object('member', member) AS data
-      FROM saved
-      WHERE member = $1
-      ORDER BY data->>'saved' DESC
+      SELECT l.data || jsonb_build_object('id', l.id) || jsonb_build_object('member', l.member) AS data
+      FROM listing l JOIN saved s ON l.id = s.listing
+      WHERE s.member = $1
+      ORDER BY s.data->>'saved' DESC
     `;
     const query = {
       text: q,
