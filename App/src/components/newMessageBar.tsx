@@ -27,22 +27,27 @@ export default function NewMessageBar() {
     // console.log(newMessage)
     await createMessage(newMessage)
     setMessage('')
+    ctx.setRefresh(r => r + 1)
   }
   return (
-    <Box sx={{py: '10px', px: '20px', bgcolor: '#adadb0',
-      borderRadius: '10px', border: '2px solid #0b0931',
-      display: 'flex', alignItems: 'center'}}>
-      <TextField fullWidth value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        variant="outlined"
-        slotProps={{htmlInput: {'style': {fontSize: '15px', color: '#0b0931'},
-          'aria-label': 'new message'}}}
-      />
-      <Box sx={{pl: '20px'}}>
-        <IconButton aria-label='send message' onClick={sendclick}>
-          <SendIcon fontSize="large" sx={{color: '#0b0931'}} />
-        </IconButton>
-      </Box>
-    </Box>
+    <>
+    {ctx.currconvo ?
+      (<Box sx={{py: '10px', px: '20px', bgcolor: '#adadb0',
+        borderRadius: '10px', border: '2px solid #0b0931',
+        display: 'flex', alignItems: 'center'}}>
+        <TextField fullWidth value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          variant="outlined"
+          slotProps={{htmlInput: {'style': {fontSize: '15px', color: '#0b0931'},
+            'aria-label': 'new message'}}}
+        />
+        <Box sx={{pl: '20px'}}>
+          <IconButton aria-label='send message' onClick={sendclick}>
+            <SendIcon fontSize="large" sx={{color: '#0b0931'}} />
+          </IconButton>
+        </Box>
+      </Box>) : ''
+    }
+    </>
   )
 }

@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-// import Typography from '@mui/material/Typography';
+import Typography from '@mui/material/Typography';
 import MessageListItem from './messageListItem'
 import {useContext} from 'react'
 import {Messagecontext} from '../app/messages/messagecontext'
@@ -28,7 +28,7 @@ export default function MessageList() {
       setMessages(c);
     }
     void getMessages();
-  }, [ctx?.currconvo])
+  }, [ctx?.currconvo, ctx?.refresh])
   useEffect(() => {
     bottomRef.current?.scrollIntoView()
   }, [messages])
@@ -45,12 +45,20 @@ export default function MessageList() {
           Messages with *Place Holder*
         </Typography>
       </Box> */}
-      <Box sx={{px: '10px'}}>
-        {messages.map((m, i) => (
-          <MessageListItem key={i} user={user.id} message={m} />
-        ))}
-        <div ref={bottomRef} />
-      </Box>
+      {ctx.currconvo ?
+        (<Box sx={{px: '10px'}}>
+          {messages.map((m, i) => (
+            <MessageListItem key={i} user={user.id} message={m} />
+          ))}
+          <div ref={bottomRef} />
+        </Box>) :
+        (<Box sx={{display: 'flex', justifyContent: 'center',
+          alignItems: 'center'}}>
+          <Typography variant="h6" sx={{color: '#0b0931', fontWeight: 'bold'}}>
+            No conversation selected
+          </Typography>
+        </Box>)
+      }
     </Box>
   )
 }
