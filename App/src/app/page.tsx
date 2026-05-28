@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Appbar from '../components/appbar'
 import Image from 'next/image'
+import HomePageLinks from '../components/homePageLinks'
 
 export default function Page() {
   return (
@@ -24,7 +25,7 @@ export default function Page() {
               This site connects people who need tickets with people who have them.
             </Typography>
           </Box>
-          <Box sx={{border: '3px solid #e1ba0c', borderRadius: '10px', p: '10px', mt: '20px', bgcolor: '#0b0931'}}>
+          {/* <Box sx={{border: '3px solid #e1ba0c', borderRadius: '10px', p: '10px', mt: '20px', bgcolor: '#0b0931'}}>
             <Typography variant='h5' sx={{color: '#e1ba0c'}}>
               Click here to list your extra tickets!
             </Typography>
@@ -33,7 +34,8 @@ export default function Page() {
             <Typography variant='h5' sx={{color: '#e1ba0c'}}>
               Click here to browse, filter, and save tickets!
             </Typography>
-          </Box>
+          </Box> */}
+          <HomePageLinks />
           <Box sx={{p: '10px'}}>
             <Typography variant='body1' sx={{color: '#0b0931'}}>
               Not affiliated with UCSC. Be wary of fake listings.
