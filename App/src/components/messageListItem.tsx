@@ -5,8 +5,11 @@ import {useEffect, useState} from 'react'
 import {useRouter} from 'next/navigation';
 
 
-export default function MessageListItem({message, user}: {message: Message, user: string}) {
+export default function MessageListItem({message, user}: {message: Message, user: string|undefined}) {
   const router = useRouter();
+  if (!user) {
+    return;
+  }
   if (message.listing && message.listingtitle) {
     return (
       <Box sx={{py: '5px', display: 'flex', justifyContent: (message.memberto == user ? 'flex-start' : 'flex-end')}}>

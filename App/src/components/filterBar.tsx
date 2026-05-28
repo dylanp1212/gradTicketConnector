@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import {useState} from 'react'
-import {Ceremony} from '../listing'
+import {Ceremony, Options} from '../listing'
 
 import {fancyCeremony} from './ticketListItem'
 
@@ -21,7 +21,7 @@ export default function FilterBar({setFunc}: {setFunc: React.Dispatch<React.SetS
   const [available, setAvailable] = useState<true | undefined>(true)
   const [verified, setVerified] = useState<true | undefined>(undefined)
   const goclick = () => {
-    const options = {term: term}
+    const options: Options = {term: term}
     if (ceremonies.length > 0) {
       options.ceremonies = ceremonies
     }

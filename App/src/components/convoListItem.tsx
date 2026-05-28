@@ -11,7 +11,9 @@ export default function ConvoListItem({id}: {id: string}) {
   useEffect(() => {
     const getname = async (): Promise<void> => {
       const n = await getMemberName(id);
-      setName(n);
+      if (n) {
+        setName(n);
+      }
     }
     void getname();
   }, [id])

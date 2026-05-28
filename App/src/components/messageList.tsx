@@ -7,6 +7,7 @@ import {useState, useEffect, useRef} from 'react'
 import {getConvo} from '../message/actions'
 import {Message} from '../message'
 import {getSessionUser} from '../auth/actions';
+import {SessionUser} from '../auth'
 // import NewMessageBar from './newMessageBar'
 
 
@@ -48,7 +49,7 @@ export default function MessageList() {
       {ctx.currconvo ?
         (<Box sx={{px: '10px'}}>
           {messages.map((m, i) => (
-            <MessageListItem key={i} user={user.id} message={m} />
+            <MessageListItem key={i} user={user?.id} message={m} />
           ))}
           <div ref={bottomRef} />
         </Box>) :

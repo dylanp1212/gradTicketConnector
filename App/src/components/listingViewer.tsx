@@ -44,7 +44,9 @@ export default function ListingViewer({listing: initialListing}: {listing: Listi
   useEffect(() => {
     const getName = async (): Promise<void> => {
       const n = await getMemberName(listing.member);
-      setName(n);
+      if (n) {
+        setName(n);
+      }
     }
     void getName();
   }, [listing])

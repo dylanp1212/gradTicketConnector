@@ -44,7 +44,7 @@ export default function TicketListItem({listing, user}: {listing: Listing, user:
     }
     void checkIfSaved()
   }, [listing.id, user])
-  const saveClick = async (e) => {
+  const saveClick = async (e: React.MouseEvent) => {
     e.stopPropagation()
     if (!user) {
       router.push('/login')

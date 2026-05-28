@@ -1,6 +1,6 @@
 'use client'
 
-import {Listing, Options} from '../listing';
+import {Listing} from '../listing';
 import {getAllListingsByMember} from '../listing/actions';
 import {getSessionUser} from '../auth/actions';
 import {SessionUser} from '../auth';
@@ -8,7 +8,7 @@ import {useState, useEffect} from 'react';
 import TicketListItem from './ticketListItem'
 
 
-export default function MyTicketList({options}: {options: Options}) {
+export default function MyTicketList() {
   const [mylistings, setMylistings] = useState<Listing[]>([]);
   const [user, setUser] = useState<SessionUser | undefined>(undefined)
   useEffect(() => {

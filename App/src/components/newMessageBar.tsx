@@ -7,6 +7,7 @@ import {useState, useEffect, useContext} from 'react'
 import {getSessionUser} from '../auth/actions';
 import {createMessage} from '../message/actions'
 import {Messagecontext} from '../app/messages/messagecontext'
+import {SessionUser} from '../auth';
 
 
 export default function NewMessageBar() {
@@ -28,6 +29,9 @@ export default function NewMessageBar() {
     await createMessage(newMessage)
     setMessage('')
     ctx.setRefresh(r => r + 1)
+  }
+  if (!ctx) {
+    return;
   }
   return (
     <>
