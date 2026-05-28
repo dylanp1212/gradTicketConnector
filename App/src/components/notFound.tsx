@@ -10,7 +10,7 @@ export default function NotFound() {
     <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center',
       height: '50vh'}}>
       <Box>
-        <Typography variant="h4" sx={{fontWeight: 'bold', color: '#0b0931'}}>
+        <Typography variant="h4" sx={{color: '#0b0931'}}>
           Hmm, we can't seem find that {':('}
         </Typography>
         <Box sx={{display: 'flex', justifyContent: 'center',
