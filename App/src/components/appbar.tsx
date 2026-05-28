@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import DrawerButton from './drawerButton';
+// import Image from 'next/image';
 // import SignInOutButton from './SignInOutButton';
 
 
@@ -14,6 +15,8 @@ export default function Appbar({title}: {title: string}) {
         boxShadow: 'none', borderBottom: '1px solid #e1ba0c', zIndex: 2000}}>
         <Toolbar disableGutters>
           <DrawerButton />
+          {/* <Image src='/2-bump-ticket-filled.png' alt='logo' width={40} height={40}
+            style={{borderRadius: '4px', marginRight: '10px'}} /> */}
           <Typography variant="h5" component="div" sx={{flexGrow: 1,
             fontFamily: '"Lexend", sans-serif', fontWeight: 600,
             letterSpacing: '-0.01em', color: '#e1ba0c'}}>
