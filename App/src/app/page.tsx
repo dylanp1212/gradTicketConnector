@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import Appbar from '../components/appbar'
 import Image from 'next/image'
 import HomePageLinks from '../components/homePageLinks'
+import BananaSlug from '../../public/Two_Banana_Slugs.jpg'
 
 export default function Page() {
   return (
@@ -43,7 +44,7 @@ export default function Page() {
           </Box>
         </Box>
         <Box sx={{width: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Image src='/Two_Banana_Slugs.jpg' alt='Banana Slugs' width={600} height={400}
+          <Image src={BananaSlug} alt='Banana Slugs' width={600} height={400}
             style={{borderRadius: '10px', width: '100%', height: 'auto', border: '3px solid #e1ba0c'}} />
         </Box>
       </Box>
