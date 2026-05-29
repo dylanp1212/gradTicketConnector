@@ -13,15 +13,16 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const code = req.nextUrl.searchParams.get('code')
   const state = req.nextUrl.searchParams.get('state')
   const storedState = req.cookies.get('oauth_state')?.value
-  const returnTo = req.cookies.get('oauth_return_to')?.value ?? '/'
-  const loginUrl = new URL('/login', req.nextUrl.origin)
+  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
+  const returnTo = req.cookies.get('oauth_return_to')?.value ?? `${base}/`
+  const loginUrl = new URL(`${base}/login`, req.nextUrl.origin)
 
   if (!code || !state || !storedState || state !== storedState) {
     console.error('[auth/callback] state mismatch', { code: !!code, state, storedState })
     return NextResponse.redirect(loginUrl)
   }
 
-  const redirectUri = `${req.nextUrl.origin}/api/auth/callback/google`
+  const redirectUri = `${req.nextUrl.origin}${base}/api/auth/callback/google`
   console.log('[auth/callback] exchanging code, redirectUri:', redirectUri)
   const authenticated = await new AuthService().exchangeGoogle(code, redirectUri)
   console.log('[auth/callback] exchangeGoogle result:', authenticated ? `ok (${authenticated.name})` : 'undefined')

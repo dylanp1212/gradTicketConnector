@@ -11,8 +11,8 @@ const COOKIE_OPTIONS = {
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   const state = randomUUID()
-  const returnTo = req.nextUrl.searchParams.get('returnTo') ?? '/'
-  const redirectUri = `${req.nextUrl.origin}/api/auth/callback/google`
+  const returnTo = req.nextUrl.searchParams.get('returnTo') ?? `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/`
+  const redirectUri = `${req.nextUrl.origin}${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/api/auth/callback/google`
 
   const params = new URLSearchParams({
     client_id: process.env.GOOGLE_CLIENT_ID ?? '',

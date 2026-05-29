@@ -1,5 +1,7 @@
 import { NextConfig } from 'next';
 
-const nextConfig: NextConfig = {};
+const nextConfig: NextConfig = {
+  basePath: '/grad-ticket-connector',
+};
 
 export default nextConfig;

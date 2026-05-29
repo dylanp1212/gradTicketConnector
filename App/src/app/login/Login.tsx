@@ -16,9 +16,10 @@ function GoogleLogo() {
 }
 
 export default function Login({ returnTo }: { returnTo?: string }) {
+  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
   const startUrl = returnTo
-    ? `/api/auth/start/google?returnTo=${encodeURIComponent(returnTo)}`
-    : '/api/auth/start/google'
+    ? `${base}/api/auth/start/google?returnTo=${encodeURIComponent(returnTo)}`
+    : `${base}/api/auth/start/google`
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', p: 2 }}>
@@ -45,7 +46,7 @@ export default function Login({ returnTo }: { returnTo?: string }) {
         >
           Continue with Google
         </Button>
-        <Button variant="text" href="/" sx={{ color: '#e1ba0c', textTransform: 'none' }}>
+        <Button variant="text" href={`${base}/`} sx={{ color: '#e1ba0c', textTransform: 'none' }}>
           Back to home
         </Button>
       </Card>
