@@ -1,0 +1,9 @@
+**/node_modules
+**/.git
+App/src
+App/coverage
+App/.env.local
+AuthService/src
+ListingMS/src
+MessageMS/src
+gradticketconnector-linux-amd64.tar

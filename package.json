@@ -1,0 +1,28 @@
+{
+  "name": "gradticketconnector",
+  "version": "1.0.0",
+  "scripts": {
+    "package": "docker build . -t gradticketconnector-linux-amd64 --platform linux/amd64 && docker save -o gradticketconnector-linux-amd64.tar gradticketconnector-linux-amd64",
+    "containerised": "npm run build && npm run compose",
+    "compose": "docker compose up --build",
+    "cis": "npm install && npm run ci-app && npm run ci-auth && npm run ci-listing && npm run ci-message",
+    "ci-app": "cd App && npm install",
+    "ci-auth": "cd AuthService && npm install",
+    "ci-listing": "cd ListingMS && npm install",
+    "ci-message": "cd MessageMS && npm install",
+    "build": "npm run build-app && npm run build-auth && npm run build-listing && npm run build-message",
+    "build-app": "cd App && npm run rbuild",
+    "build-auth": "cd AuthService && npm run build",
+    "build-listing": "cd ListingMS && npm run build",
+    "build-message": "cd MessageMS && npm run build",
+    "start-app-container": "cd App && node_modules/.bin/next start -p 3005",
+    "start-auth": "cd AuthService && node dist/server.js",
+    "start-listing": "cd ListingMS && node build/src/server.js",
+    "start-message": "cd MessageMS && node build/src/server.js",
+    "start-nginx": "nginx -g 'daemon off;'",
+    "start-container": "concurrently --kill-others \"npm run start-nginx\" \"npm run start-app-container\" \"npm run start-auth\" \"npm run start-listing\" \"npm run start-message\""
+  },
+  "devDependencies": {
+    "concurrently": "*"
+  }
+}

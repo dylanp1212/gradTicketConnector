@@ -1,4 +1,13 @@
 services:
+  app:
+    container_name: gradticketconnector-app
+    env_file: .env
+    build: .
+    depends_on:
+      - postgres
+    ports:
+      - "3001:3001"
+
   postgres:
     container_name: grad-ticket-connector
     image: postgres

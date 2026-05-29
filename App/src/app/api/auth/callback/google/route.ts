@@ -14,15 +14,16 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const state = req.nextUrl.searchParams.get('state')
   const storedState = req.cookies.get('oauth_state')?.value
   const base = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
+  const origin = process.env.APP_URL ?? req.nextUrl.origin
   const returnTo = req.cookies.get('oauth_return_to')?.value ?? `${base}/`
-  const loginUrl = new URL(`${base}/login`, req.nextUrl.origin)
+  const loginUrl = new URL(`${base}/login`, origin)
 
   if (!code || !state || !storedState || state !== storedState) {
     console.error('[auth/callback] state mismatch', { code: !!code, state, storedState })
     return NextResponse.redirect(loginUrl)
   }
 
-  const redirectUri = `${req.nextUrl.origin}${base}/api/auth/callback/google`
+  const redirectUri = `${origin}${base}/api/auth/callback/google`
   console.log('[auth/callback] exchanging code, redirectUri:', redirectUri)
   const authenticated = await new AuthService().exchangeGoogle(code, redirectUri)
   console.log('[auth/callback] exchangeGoogle result:', authenticated ? `ok (${authenticated.name})` : 'undefined')
@@ -31,7 +32,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     return NextResponse.redirect(loginUrl)
   }
 
-  const response = NextResponse.redirect(new URL(returnTo, req.nextUrl.origin))
+  const response = NextResponse.redirect(new URL(returnTo, origin))
   response.cookies.set('session', authenticated.accessToken, SESSION_COOKIE)
   response.cookies.delete('oauth_state')
   response.cookies.delete('oauth_return_to')

@@ -46,6 +46,7 @@
     "dev": "next dev -p 3001",
     "prebuild": "(npm run lint) && (npm run cpd)",
     "build": "next build",
+    "rbuild": "next build",
     "prestart": "npm run build",
     "start": "next start",
     "pretest": "(npm run lint) && (npm run cpd)",
