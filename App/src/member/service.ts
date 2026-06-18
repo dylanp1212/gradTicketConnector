@@ -1,7 +1,4 @@
-const isTest = process.env.NODE_ENV === 'test';
-if (!isTest) {
-  await import('server-only');
-}
+import 'server-only'
 
 function authServiceUrl(): string {
   return process.env.AUTH_SERVICE_URL ?? 'http://localhost:3002'
